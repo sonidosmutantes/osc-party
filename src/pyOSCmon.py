@@ -12,14 +12,14 @@ class MyServer(ServerThread):
 
     gdata_dict = {}
     ets_dict ={}
-    val_dict = {}	
+    val_dict = {}
     t0 = liblo.time()
 
     @make_method(None, None)
     def fallback(self, path, args, src):
 	lista = path.split("/")
 	n_lista = len(lista)
-	
+
 #	print self.ets_dict
 
 	etiqueta = '/'+'/'.join(lista[1:n_lista])
@@ -27,28 +27,28 @@ class MyServer(ServerThread):
 
 	if self.ets_dict.get(etiqueta,'Nueva')=='Nueva':
 		self.gdata_dict[etiqueta]=[]
-		self.ets_dict[etiqueta]=[len(args), file_etiqueta] 
+		self.ets_dict[etiqueta]=[len(args), file_etiqueta]
 		f = open("labellist.json", "w")
 		f.write(simplejson.dumps(self.ets_dict)) # Write a string to a file
 		f.close()
 		print src , path
 
 	if not(args):
-		
-		for c,dt in zip([0, 1, 0],[0,1,2]):	
-	
+
+		for c,dt in zip([0, 1, 0],[0,1,2]):
+
 			tupla = ('time',)
-	
+
 			self.val_dict[etiqueta]={}
 			self.val_dict[etiqueta]['data'] = {"time": round(liblo.time()-self.t0,2)+dt/1000}
 			self.val_dict[etiqueta]['description'] = {"time": ("number", "time")}
 
 			self.val_dict[etiqueta]['data']['e'] = c
 			self.val_dict[etiqueta]['description']['e']=('number', 'Evento')
-			tupla = tupla + ('e',)			
+			tupla = tupla + ('e',)
 
 			self.gdata_dict[etiqueta].append(self.val_dict[etiqueta]['data'])
-				                
+
 	else:
 		self.val_dict[etiqueta]={}
 		self.val_dict[etiqueta]['data'] = {"time": round(liblo.time()-self.t0,2)}
@@ -56,23 +56,24 @@ class MyServer(ServerThread):
 
 		c = 0
 		tupla = ('time',)
-	
+
 		for a in args:
 			c = c + 1
 			self.val_dict[etiqueta]['data']['p'+str(c)] = a
 			self.val_dict[etiqueta]['description']['p'+str(c)]=('number', 'Parametro ' + str(c))
 			tupla = tupla + ('p' + str(c),)
-	
+
+# log
 #		print self.val_dict[etiqueta]['data']
 #		print self.val_dict[etiqueta]['description']
 #		print self.gdata_dict[etiqueta]
 #		import ipdb;ipdb.set_trace()
 
 		self.gdata_dict[etiqueta].append(self.val_dict[etiqueta]['data'])
-	
+
 	if len(self.gdata_dict[etiqueta]) > 100:
 		self.gdata_dict[etiqueta].pop(0)
-	
+
 	data_table = gviz_api.DataTable(self.val_dict[etiqueta]['description'])
 
 	# Loading it into gviz_api.DataTable
@@ -85,7 +86,7 @@ class MyServer(ServerThread):
 		f.write(json)
 	f.close()
 
- 		
+
 try:
     server = MyServer()
 except ServerError, err:
@@ -94,5 +95,3 @@ except ServerError, err:
 
 server.start()
 raw_input("press enter to quit...\n")
-
-

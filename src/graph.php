@@ -1,16 +1,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>MARDER OSC MONITOR</title>
+<title>OSC MONITOR</title>
 <link href="styles/style.css" rel="stylesheet" type="text/css" />
 
 
-<?php $etiqueta = $_GET['etiqueta']; 
+<?php $etiqueta = $_GET['etiqueta'];
 	$json = $etiqueta.'.json';
 ?>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
 
 		google.load("visualization", "1", {packages:["corechart"]});
@@ -23,7 +23,7 @@
 				async: false
 				}).responseText;
 			// Create our data table out of JSON data loaded from server.
-			
+
 //			var jsonDataOld = $.extend(jsonDataOld,jsonData);
 			var data = new google.visualization.DataTable(jsonData);
 			var options = {
@@ -34,7 +34,7 @@
 			chart.draw(data, options);
 //			chart.setRefreshInterval(1);
 		}
-	
+
 	var intervalID = setInterval(drawChart, 500);
 
 	</script>
@@ -53,5 +53,3 @@
 
 </body>
 </html>
-
-
