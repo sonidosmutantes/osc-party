@@ -2,18 +2,23 @@
 
 Fight for your right (to OSC party)
 
-# Docker build
+# Docker image build
 ```
 $ docker build -t osc-party-app .
+```
 
+# Run
+```
 $ docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app /bin/bash
+$ python2 /var/www/html/pyOSCmon.py &
+$ /usr/sbin/apache2ctl -D FOREGROUND
 ```
 
 http://localhost:8090
 
 OSC port: 12345
 
-# Dependencies
+# Dependencies (without docker image)
 
 * PHP
 * Apache
