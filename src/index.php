@@ -10,7 +10,7 @@
 ?>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
 
 	function update() {

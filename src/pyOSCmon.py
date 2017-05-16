@@ -31,7 +31,7 @@ class MyServer(ServerThread):
 		f = open("labellist.json", "w")
 		f.write(simplejson.dumps(self.ets_dict)) # Write a string to a file
 		f.close()
-		print src. ,path
+		print src , path
 
 	if not(args):
 		
@@ -48,7 +48,6 @@ class MyServer(ServerThread):
 			tupla = tupla + ('e',)			
 
 			self.gdata_dict[etiqueta].append(self.val_dict[etiqueta]['data'])
-
 				                
 	else:
 		self.val_dict[etiqueta]={}
