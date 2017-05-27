@@ -4,51 +4,52 @@
 <title>MARDER OSC MONITOR</title>
 <link href="styles/style.css" rel="stylesheet" type="text/css" />
 
-
-<?php $etiqueta = $_GET['etiqueta']; 
+<?php 
+	$etiqueta = $_GET['etiqueta']; 
 	$json = $etiqueta.'.json';
 ?>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 
+<script type="text/javascript">
 	function update() {
-		$.ajax({url:"labellist.json",
+		$.ajax({
+			type: "GET",
+			url:"labellist.json",
 			success: function (e) {
-				$("#chart_div div").remove(); 
-				
+				//TODO: don't reload if result has HTML code 304 (not modified)
+				document.getElementById("#summary").innerHTML = "";
 				for(label in e) {
-					
 					var qs=e[label][1];
 					var n_params= e[label][0];
-					var div= $("<div>")
-					var a = $("<a>");
-					a.appendTo(div);
-					a.text(label + " (" + n_params + ")");
-					a.attr("href", "graph.php?etiqueta=" + qs);
-					div.appendTo("#chart_div")
+					// var a = $("<a>");
+					// a.text(label + " (" + n_params + ")");
+					// a.attr("href", "graph.php?etiqueta=" + qs);
+					var a = "<a href=\"graph.php?etiqueta=" + qs + "\">" + label + " (" + n_params + ")</a>";
+					document.getElementById("#summary").innerHTML += a + "<hr/>"; 	
 				}
-			}
+			},
+			error: function (e) {
+                    alert('Error Received: ' + e);
+            }
 		}, "json") 
 	}	
-	
-	setInterval("update()", 300);	
+	setInterval("update()", 600);	
 </script>
-	
-
 </head>
 
 <body>
-
-   <div id="slidingDiv">
-       	<div id="chart_div" style="margin-left:100px;margin-top:30px">
+	<div id="#chart_div" style="margin-left:100px;margin-top:30px">
 	</div>
-    </div>
 
-</div>
+	OSC addresses<hr/>
 
+	<div id="#summary">
+		OSC Party
+	</div>
 </body>
+
 </html>
 
 

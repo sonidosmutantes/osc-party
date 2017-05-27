@@ -1,12 +1,12 @@
-# docker build -t osc-party-app .
-# docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app /bin/bash # bind puerto 80 en docker a 8080 en localhost
+# BUILD: docker build -t osc-party-app .
 
-# EDIT mode (shared src folder)
-# docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html osc-party-app /bin/bash
+# RUN
+# SERVER mode: docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app # bind puerto 80 en docker a 8090 en localhost
+# DEV mode (shared src folder): docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html  --entrypoint /bin/bash osc-party-app
 
 FROM php:7.0-apache
 
-#We provide the helper scripts docker-php-ext-configure, docker-php-ext-install, and docker-php-ext-enable to more easily install PHP extensions.
+# NOTE: We provide the helper scripts docker-php-ext-configure, docker-php-ext-install, and docker-php-ext-enable to more easily install PHP extensions.
 # https://hub.docker.com/_/php/
 
 RUN apt-get update && apt-get install -y \
@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
 # RUN git clone https://github.com/sonidosmutantes/osc-party
 # RUN cp -R osc-party/src/ /var/www/html/
 COPY src/ /var/www/html/
+
 #COPY config/php.ini /usr/local/etc/php/
 
 WORKDIR /var/www/html/
@@ -30,5 +31,10 @@ RUN pip2 install pyliblo
 RUN pip2 install simplejson
 RUN pip2 install -U https://github.com/google/google-visualization-python/zipball/master
 
-#RUN python2 /var/www/html/pyOSCmon.py &
-#RUN /usr/sbin/apache2ctl -D FOREGROUND
+
+# Downloads url (no need to install wget)
+ADD http://code.jquery.com/jquery-1.8.2.min.js /var/www/html/
+RUN chmod 755 /var/www/html/jquery-1.8.2.min.js 
+
+# ENTRYPOINT python2 /var/www/html/pyOSCmon.py # FIXME: no works
+ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND
