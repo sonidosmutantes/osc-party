@@ -31,10 +31,13 @@ RUN pip2 install pyliblo
 RUN pip2 install simplejson
 RUN pip2 install -U https://github.com/google/google-visualization-python/zipball/master
 
-
 # Downloads url (no need to install wget)
 ADD http://code.jquery.com/jquery-1.8.2.min.js /var/www/html/
-RUN chmod 755 /var/www/html/jquery-1.8.2.min.js 
+ADD https://www.google.com/jsapi /var/www/html
 
-# ENTRYPOINT python2 /var/www/html/pyOSCmon.py # FIXME: no works
-ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND
+RUN chmod 755 /var/www/html/jquery-1.8.2.min.js 
+RUN chmod 755 /var/www/html/jsapi 
+
+EXPOSE 12345
+EXPOSE 80
+ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND && python2 /var/www/html/pyOSCmon.py

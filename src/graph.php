@@ -8,7 +8,7 @@
 	$json = $etiqueta.'.json';
 ?>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jsapi"></script>
 	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
 
