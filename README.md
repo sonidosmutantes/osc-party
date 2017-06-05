@@ -38,3 +38,8 @@ $ pip2 install pyliblo
 $ pip2 install simplejson
 $ pip2 install -U https://github.com/google/google-visualization-python/zipball/master
 ```
+# Example
+
+![osc msg list.png](doc/osc_msg_list.png)
+
+![osc data.png](doc/osc_data.png)
