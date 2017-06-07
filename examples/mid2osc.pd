@@ -1,0 +1,23 @@
+#N canvas 648 570 624 319 10;
+#X obj 30 34 ctlin 0;
+#X obj 30 87 s m2o_unpacked_osc;
+#X msg 30 60 /fcut \$1;
+#X obj 381 86 packOSC;
+#X obj 381 113 udpsend;
+#X msg 435 86 connect 192.168.1.255 12345;
+#X msg 459 58 disconnect;
+#X obj 381 32 r m2o_unpacked_osc;
+#X obj 32 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 32 181 metro 1000;
+#X msg 32 205 /metro;
+#X obj 32 230 s m2o_unpacked_osc;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 3 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

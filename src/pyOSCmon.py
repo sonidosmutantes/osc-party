@@ -5,10 +5,17 @@ import liblo
 import gviz_api
 import sys
 import simplejson
+from time import sleep
+
+WWW_PATH="/var/www/"
+
+#clean file at startup
+f = open(WWW_PATH+"labellist.json", "w")
+f.close()
 
 class MyServer(ServerThread):
     def __init__(self):
-        ServerThread.__init__(self, 12345)
+        ServerThread.__init__(self, 4330) #FIXME: load port from json config file
 
     gdata_dict = {}
     ets_dict ={}
@@ -28,7 +35,8 @@ class MyServer(ServerThread):
 	if self.ets_dict.get(etiqueta,'Nueva')=='Nueva':
 		self.gdata_dict[etiqueta]=[]
 		self.ets_dict[etiqueta]=[len(args), file_etiqueta]
-		f = open("labellist.json", "w")
+		f = open(WWW_PATH+"labellist.json", "w")
+                #print(WWW_PATH)
 		f.write(simplejson.dumps(self.ets_dict)) # Write a string to a file
 		f.close()
 		print src , path
@@ -82,7 +90,7 @@ class MyServer(ServerThread):
 	# Creating a JSon string
 	json = data_table.ToJSon(columns_order=tupla)
 
-	with open(file_etiqueta +'.json', 'w') as f:
+	with open(WWW_PATH+file_etiqueta +'.json', 'w') as f:
 		f.write(json)
 	f.close()
 
@@ -94,4 +102,8 @@ except ServerError, err:
     sys.exit()
 
 server.start()
-raw_input("press enter to quit...\n")
+#raw_input("press enter to quit...\n")
+
+while True:
+    #server.recv(100) #every 100ms (it's a thread)
+    sleep(.1)
