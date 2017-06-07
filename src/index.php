@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>MARDER OSC MONITOR</title>
+<title>JAM OSC MONITOR</title>
 <link href="styles/style.css" rel="stylesheet" type="text/css" />
 
 <?php 
