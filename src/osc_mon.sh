@@ -1,2 +1,2 @@
-python2 /var/www/html/pyOSCmon.py &
-
+#python2 /var/www/html/pyOSCmon.py &
+pyOSCmon.py
