@@ -8,7 +8,7 @@ import simplejson
 
 class MyServer(ServerThread):
     def __init__(self):
-        ServerThread.__init__(self, 12345)
+        ServerThread.__init__(self, 4330) #FIXME: load port from json config file
 
     gdata_dict = {}
     ets_dict ={}

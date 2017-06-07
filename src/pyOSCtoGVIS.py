@@ -3,9 +3,9 @@
 import gviz_api
 import liblo, sys
 
-# create server, listening on port 1234
+# create server, listening on port 4330
 try:
-    server = liblo.Server(12345)
+    server = liblo.Server(4330)
 except liblo.ServerError, err:
     print str(err)
     sys.exit()
