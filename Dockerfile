@@ -1,7 +1,8 @@
 # docker build -t osc-party-app .
+# --rm Automatically remove the container when it exits
 # docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app /bin/bash # bind puerto 80 en docker a 8080 en localhost
 
-# EDIT mode (shared src folder)
+# EDIT mode (shared src folder) 
 # docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html osc-party-app /bin/bash
 
 FROM php:7.0-apache
@@ -30,5 +31,6 @@ RUN pip2 install pyliblo
 RUN pip2 install simplejson
 RUN pip2 install -U https://github.com/google/google-visualization-python/zipball/master
 
+EXPOSE 4330
 #RUN python2 /var/www/html/pyOSCmon.py &
 #RUN /usr/sbin/apache2ctl -D FOREGROUND
