@@ -8,7 +8,8 @@ import simplejson
 from time import sleep
 
 #WWW_PATH="/var/www/"
-WWW_PATH="/var/www/html"
+#WWW_PATH="/var/www/html/"
+WWW_PATH="./"
 
 PORT=4330
 
