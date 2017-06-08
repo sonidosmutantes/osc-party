@@ -1,0 +1,35 @@
+import Sound.Tidal.OscStream
+import Sound.Tidal.Context as C
+
+let party = Shape {
+      params = [ S "texto" Nothing,
+                 I "entero" (Just 1),
+                 F "flotante" (Just 0.5),
+               ],
+      cpsStamp = False,
+      C.latency = 0
+      }
+    partySlang = OscSlang {path = "/",
+                           timestamp = NoStamp,
+                           namedParams = False,
+                           preamble = []
+                          }
+    partyStream = do
+      s <- makeConnection "5.0.100.255" 4330 partySlang
+      stream (Backend s $ (\_ _ _ -> return ())) party
+    texto      = makeS unity "texto"
+    entero     = makeI unity "entero"
+    flotante   = makeF unity "flotante"
+
+p1 <- partyStream
+
+cps 1
+
+p1 $
+   every 2 (density 2) $
+   every 3 (within(0,0.5)(slow 2)) $
+   texto "hola mundo"
+   # entero 1
+   # flotante 0.5
+
+p1 silence

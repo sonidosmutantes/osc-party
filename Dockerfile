@@ -1,8 +1,13 @@
 # BUILD: docker build -t osc-party-app .
 
+# --rm Automatically remove the container when it exits
+
+# EDIT mode (shared src folder) 
+# docker run -it --rm -p 8090:80 -p 4330:4330 -v $PWD/src:/var/www/html osc-party-app /bin/bash
+
 # RUN
-# SERVER mode: docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app # bind puerto 80 en docker a 8090 en localhost
-# DEV mode (shared src folder): docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html  --entrypoint /bin/bash osc-party-app
+# SERVER mode: docker run -it --rm -p 8090:80 -p 4330:4330 osc-party-app # bind puerto 80 en docker a 8090 en localhost
+# DEV mode (shared src folder): docker run -it --rm -p 8090:80 -p 4330:4330 -v $PWD/src:/var/www/html  --entrypoint /bin/bash osc-party-app
 
 FROM php:7.0-apache
 
@@ -15,12 +20,13 @@ RUN apt-get update && apt-get install -y \
   python-pip \
   python-dev \
   build-essential \
+  screen \
   liblo-dev
 
 # RUN git clone https://github.com/sonidosmutantes/osc-party
 # RUN cp -R osc-party/src/ /var/www/html/
 COPY src/ /var/www/html/
-
+#COPY rc.local /etc/rc.local
 #COPY config/php.ini /usr/local/etc/php/
 
 WORKDIR /var/www/html/
@@ -35,9 +41,10 @@ RUN pip2 install -U https://github.com/google/google-visualization-python/zipbal
 ADD http://code.jquery.com/jquery-1.8.2.min.js /var/www/html/
 ADD https://www.google.com/jsapi /var/www/html
 
-RUN chmod 755 /var/www/html/jquery-1.8.2.min.js 
-RUN chmod 755 /var/www/html/jsapi 
+RUN chmod 755 /var/www/html/jquery-1.8.2.min.js
+RUN chmod 755 /var/www/html/jsapi
 
-EXPOSE 12345
+EXPOSE 4330
 EXPOSE 80
-ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND && python2 /var/www/html/pyOSCmon.py
+#ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND && screen -S oscmon -d -m /var/www/html/pyOSCmon.py
+ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND
