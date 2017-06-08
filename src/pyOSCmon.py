@@ -8,6 +8,8 @@ import simplejson
 from time import sleep
 
 WWW_PATH="/var/www/"
+#PORT=12345
+PORT=4330 #FIXME: load port from json config file
 
 #clean file at startup
 f = open(WWW_PATH+"labellist.json", "w")
@@ -15,7 +17,7 @@ f.close()
 
 class MyServer(ServerThread):
     def __init__(self):
-        ServerThread.__init__(self, 4330) #FIXME: load port from json config file
+        ServerThread.__init__(self, PORT)
 
     gdata_dict = {}
     ets_dict ={}
