@@ -1,17 +1,13 @@
-<<<<<<< HEAD
-# docker build -t osc-party-app .
-# --rm Automatically remove the container when it exits
-# docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app /bin/bash # bind puerto 80 en docker a 8080 en localhost
-
-# EDIT mode (shared src folder) 
-# docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html osc-party-app /bin/bash
-=======
 # BUILD: docker build -t osc-party-app .
 
+# --rm Automatically remove the container when it exits
+
+# EDIT mode (shared src folder) 
+# docker run -it --rm -p 8090:80 -p 4330:4330 -v $PWD/src:/var/www/html osc-party-app /bin/bash
+
 # RUN
-# SERVER mode: docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app # bind puerto 80 en docker a 8090 en localhost
-# DEV mode (shared src folder): docker run -it --rm -p 8090:80 -p 12345:12345 -v $PWD/src:/var/www/html  --entrypoint /bin/bash osc-party-app
->>>>>>> 98b440d343c4673abd4bff08cb2cef70ced75325
+# SERVER mode: docker run -it --rm -p 8090:80 -p 4330:4330 osc-party-app # bind puerto 80 en docker a 8090 en localhost
+# DEV mode (shared src folder): docker run -it --rm -p 8090:80 -p 4330:4330 -v $PWD/src:/var/www/html  --entrypoint /bin/bash osc-party-app
 
 FROM php:7.0-apache
 
@@ -50,4 +46,4 @@ RUN chmod 755 /var/www/html/jsapi
 
 EXPOSE 4330
 EXPOSE 80
-ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND && screen -d -m /var/www/html/pyOSCmon.py
+ENTRYPOINT /usr/sbin/apache2ctl -D FOREGROUND && screen -S oscmon -d -m /var/www/html/pyOSCmon.py
