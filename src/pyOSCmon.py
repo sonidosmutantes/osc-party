@@ -7,7 +7,10 @@ import sys
 import simplejson
 from time import sleep
 
-WWW_PATH="/var/www/"
+#WWW_PATH="/var/www/"
+WWW_PATH="/var/www/html"
+
+PORT=4330
 
 #clean file at startup
 f = open(WWW_PATH+"labellist.json", "w")
@@ -15,7 +18,7 @@ f.close()
 
 class MyServer(ServerThread):
     def __init__(self):
-        ServerThread.__init__(self, 4330) #FIXME: load port from json config file
+        ServerThread.__init__(self, PORT) #FIXME: load port from json config file
 
     gdata_dict = {}
     ets_dict ={}
