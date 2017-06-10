@@ -19,7 +19,7 @@ http://localhost:8090
 
 OSC port: 3440
 
-WARNING: Google Visualization API requires Internet connection.
+_WARNING_: Google Visualization API requires **Internet** connection.
 
 # Dependencies (without docker image)
 

@@ -8,12 +8,12 @@
 	$json = $etiqueta.'.json';
 ?>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="visualization.js"></script>
+	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
-	if(google) {
-		google.load("visualization", "1", {packages:["corechart"]});
-		google.setOnLoadCallback(drawChart);
+
+		//google.load("visualization", "1", {packages:["corechart"]});
+		//google.setOnLoadCallback(drawChart);
 
 		function drawChart() {
 			document.getElementById("#summary").innerHTML = "";
@@ -40,7 +40,7 @@
 		}
 
 	var intervalID = setInterval(drawChart, 500);
-	}
+
 	</script>
 
 
