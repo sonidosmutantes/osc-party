@@ -11,15 +11,15 @@ $ docker build -t osc-party-app .
 ```
 
 # Run
-```
-$ docker run -it --rm -p 8090:80 -p 12345:12345 osc-party-app /bin/bash
-$ python2 /var/www/html/pyOSCmon.py &
-$ /usr/sbin/apache2ctl -D FOREGROUND
-```
+    $ docker run -it --rm -p 8090:80 -p 3440:3440 osc-party-app /bin/bash
+    $ python2 /var/www/html/pyOSCmon.py &
+    $ /usr/sbin/apache2ctl -D FOREGROUND
 
 http://localhost:8090
 
-OSC port: 12345
+OSC port: 3440
+
+WARNING: Google Visualization API requires Internet connection.
 
 # Dependencies (without docker image)
 
